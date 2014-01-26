@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Googleoauth2component by uchilaka</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Googleoauth2component : Oauth 2.0 Component for CakePHP Project - Requires the Google_Client and Google_Oauth2Service client libraries" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Googleoauth2component</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>Googleoauth2component</h1>
-          <h2>Oauth 2.0 Component for CakePHP Project - Requires the Google_Client and Google_Oauth2Service client libraries</h2>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/uchilaka/GoogleOauth2Component">View on GitHub</a>
+
+          <h1 id="project_title">Googleoauth2component</h1>
+          <h2 id="project_tagline">Oauth 2.0 Component for CakePHP Project - Requires the Google_Client and Google_Oauth2Service client libraries</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/uchilaka/GoogleOauth2Component/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/uchilaka/GoogleOauth2Component/tarball/master">Download this project as a tar.gz file</a>
+            </section>
         </header>
+    </div>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/uchilaka/GoogleOauth2Component/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/uchilaka/GoogleOauth2Component/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/uchilaka/GoogleOauth2Component" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        
 
 <h1>
 <a name="disclaimer" class="anchor" href="#disclaimer"><span class="octicon octicon-link"></span></a>DISCLAIMER</h1>
@@ -80,17 +80,17 @@
 
 <ul> 
     public $components = array('GoogleOauth2');
-     </ul><p>Next, use the <a href="#connect">connect()</a> method to initialize the component when you are ready to attempt authentication against Google ID. See the method reference <a href="#connect">below</a> for accepted arguments.</p>
+     </ul><p></p><p>Next, use the <a href="#connect">connect()</a> method to initialize the component when you are ready to attempt authentication against Google ID. See the method reference <a href="#connect">below</a> for accepted arguments.</p>
   <h2>
 <a name="loading-components-on-the-fly" class="anchor" href="#loading-components-on-the-fly"><span class="octicon octicon-link"></span></a>LOADING COMPONENTS ON THE FLY</h2>
 
-  <p>You can load the component on the fly in your CakePHP application using the following syntax:</p>
-  <p>$this-&gt;GoogleAuth = $this-&gt;Components-&gt;load('GoogleOauth2');              
-  </p>
+<p></p><p>You can load the component on the fly in your CakePHP application using the following syntax:</p>
+  <p>$this-&gt;GoogleAuth = $this-&gt;Components-&gt;load('GoogleOauth2');<br></p>
+
 <h1>
 <a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>FUNCTIONS</h1>
-<ul>
-<blockquote>
+
+<p></p><blockquote>
     <h3>
 <a name="connectcontroller-controller-config-scopes-api_mode" class="anchor" href="#connectcontroller-controller-config-scopes-api_mode"><span class="octicon octicon-link"></span></a>connect(Controller $controller, $config, $scopes, $api_mode)</h3>
     <p>    This method is most likey
@@ -105,12 +105,11 @@
         <p>client_secret: Your Google API secret</p>
         <p>redirect_url: Your success redirect url once the authentication action is completed. This url MUST be included in the list of accepted callbacks in your google console</p>
       </blockquote>
-      <p>scopes: This is an array of Google API scopes. These scopes are in url format. A typical array of scopes will look like this:   
-      </p>
-      <p>      $scopes = array('https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/drive', 
-        'https://www.googleapis.com/auth/drive.file');</p>
+      <p>scopes: This is an array of Google API scopes. These scopes are in url format. A typical array of scopes will look like this:<br></p>
+      <p>      $scopes = array('<a href="https://www.googleapis.com/auth/userinfo.email">https://www.googleapis.com/auth/userinfo.email</a>',
+        '<a href="https://www.googleapis.com/auth/userinfo.profile">https://www.googleapis.com/auth/userinfo.profile</a>',
+        '<a href="https://www.googleapis.com/auth/drive">https://www.googleapis.com/auth/drive</a>', 
+        '<a href="https://www.googleapis.com/auth/drive.file'">https://www.googleapis.com/auth/drive.file'</a>);</p>
       <p>      The <em>email</em> and <em>profile</em> scopes are required for this component.
       </p>
       <p>api_mode: This is a boolean variable. If set to true, the component will return an associative array with a <em>success</em> index that indicates whether the auth attempt was successful or not. This will be useful if you are authenticating via an API and would like to parse the associate array to a JSON string (for instance) instead of the auto-redirect action.</p>
@@ -140,19 +139,24 @@
     <p>    Returns a JSON string of the tokens returned on successful authentication and stored in the session array.
     </p>
   </blockquote>
-</ul><h1>
+
+<h1>
 <a name="questions" class="anchor" href="#questions"><span class="octicon octicon-link"></span></a>QUESTIONS?</h1>
 
 <p> Reach out @ <a href="https://twitter.com/uchechilaka" title="WebsiteInAPage on Twitter" target="_blank">https://twitter.com/websiteinapage</a>. I'll do my best to respond in a timely fasion. 
     </p>
-        </section>
+      </section>
+    </div>
 
-        <footer>
-          Googleoauth2component is maintained by <a href="https://github.com/uchilaka">uchilaka</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Googleoauth2component maintained by <a href="https://github.com/uchilaka">uchilaka</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
 
-                  <script type="text/javascript">
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -163,7 +167,6 @@
             } catch(err) {}
           </script>
 
-      </div>
-    </div>
+
   </body>
 </html>
