@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Googleoauth2component by uchilaka</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Googleoauth2component</h1>
+          <h2>Oauth 2.0 Component for CakePHP Project - Requires the Google_Client and Google_Oauth2Service client libraries</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/uchilaka/GoogleOauth2Component/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/uchilaka/GoogleOauth2Component/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/uchilaka/GoogleOauth2Component" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          
+
+<h1>
+<a name="disclaimer" class="anchor" href="#disclaimer"><span class="octicon octicon-link"></span></a>DISCLAIMER</h1>
+
+<p></p><p>  This work is put on here to assist anyone working with CakePHP projects and needing a wrapper class for the Google OAuth 2.0 library. It is provided AS-IS. 
+  </p>
+
+<h1>
+<a name="plugin-vs-component" class="anchor" href="#plugin-vs-component"><span class="octicon octicon-link"></span></a>PLUGIN VS. COMPONENT</h1>
+
+<p> There are cases when it is best to use a plugin in CakePHP, and other cases where it works out to use a component. Depending on 
+  your preferences, you could swing in either direction - this component provides functionality that some might see better fit for 
+  a plugin - and there might be a plugin version in the future. For now - quick and dirty!
+  </p>
+
+<h1>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>REQUIREMENTS</h1>
+
+<p> This component requires the following libraries:
+  </p>
+
+<p>CakePHP - Your application should be based on the CakePHP Framework. You can download the framework code at <a href="http://cakephp.org/" title="CakePHP Website" target="_blank">http://cakephp.org/</a>.</p>
+
+<p>A working knowledge of coding with CakePHP. The CakePHP documentation can be found here: <a href="http://book.cakephp.org/2.0/en/index.html" target="_blank">http://book.cakephp.org/2.0/en/index.html</a></p>
+
+<p>A Google Console Project with OAuth credentials. To setup your google console project, visit <a href="http://cloud.google.com" target="_blank">http://cloud.google.com</a>.</p>
+
+<p>The Google_Oauth2Service class, available in the <a href="https://code.google.com/p/google-api-php-client/" target="_blank">Google API Client Library for PHP</a> library
+    </p>
+
+<p>The Google_Client class, also available in the <a href="https://code.google.com/p/google-api-php-client/" target="_blank">Google API Client Library for PHP</a> library</p>
+
+<h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>INSTALLATION</h1>
+
+<p>Copy the component to your /&lt;Application Root&gt;/app/Controller/Component/ directory, or any other directory bootstrapped to search for components.</p>
+
+<p>Replace the paths to both the Google_Oauth2Service and Google_Client class files with the correct path on your server - e.g. /var/www/libraries/google/google-api-client/src/contrib/&lt;ClassFile&gt; assuming that is where you have the Google API library installed on your server</p>
+
+<p>That's it! You're ready to start using the component within your CakePHP controllers.            </p>
+
+<h1>
+<a name="using-the-component" class="anchor" href="#using-the-component"><span class="octicon octicon-link"></span></a>USING THE COMPONENT</h1>
+
+<p>Include the component name in your $components array </p>
+
+<ul> 
+    public $components = array('GoogleOauth2');
+     </ul><p>Next, use the <a href="#connect">connect()</a> method to initialize the component when you are ready to attempt authentication against Google ID. See the method reference <a href="#connect">below</a> for accepted arguments.</p>
+  <h2>
+<a name="loading-components-on-the-fly" class="anchor" href="#loading-components-on-the-fly"><span class="octicon octicon-link"></span></a>LOADING COMPONENTS ON THE FLY</h2>
+
+  <p>You can load the component on the fly in your CakePHP application using the following syntax:</p>
+  <p>$this-&gt;GoogleAuth = $this-&gt;Components-&gt;load('GoogleOauth2');              
+  </p>
+<h1>
+<a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>FUNCTIONS</h1>
+<ul>
+<blockquote>
+    <h3>
+<a name="connectcontroller-controller-config-scopes-api_mode" class="anchor" href="#connectcontroller-controller-config-scopes-api_mode"><span class="octicon octicon-link"></span></a>connect(Controller $controller, $config, $scopes, $api_mode)</h3>
+    <p>    This method is most likey
+      be well used within your project. It initializes your authentication attempt againt the user's Google ID, and accepts the following arguments:
+    </p>
+    <blockquote>
+      <p>controller: Use the $this variable to pass your controller into the component for controller-level callbacks</p>
+      <p>$config: This is an associative array with the following parameters:
+      </p>
+      <blockquote>
+        <p>client_id: Your Google API client ID</p>
+        <p>client_secret: Your Google API secret</p>
+        <p>redirect_url: Your success redirect url once the authentication action is completed. This url MUST be included in the list of accepted callbacks in your google console</p>
+      </blockquote>
+      <p>scopes: This is an array of Google API scopes. These scopes are in url format. A typical array of scopes will look like this:   
+      </p>
+      <p>      $scopes = array('https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/drive', 
+        'https://www.googleapis.com/auth/drive.file');</p>
+      <p>      The <em>email</em> and <em>profile</em> scopes are required for this component.
+      </p>
+      <p>api_mode: This is a boolean variable. If set to true, the component will return an associative array with a <em>success</em> index that indicates whether the auth attempt was successful or not. This will be useful if you are authenticating via an API and would like to parse the associate array to a JSON string (for instance) instead of the auto-redirect action.</p>
+    </blockquote>
+    <h3>
+<a name="isready" class="anchor" href="#isready"><span class="octicon octicon-link"></span></a>isReady()</h3>
+    <p>    This returns true or false after a <a href="#connect">connect()</a> call for a success or failure to authenticate. 
+    </p>
+    <h3>
+<a name="getauthurl" class="anchor" href="#getauthurl"><span class="octicon octicon-link"></span></a>getAuthUrl()</h3>
+    <p>    Returns the authentication Url against Google's OAuth API. Is useful if you are handling redirection manually. In this case, the <em>api_mode<em> variable of your <a href="#connect">connect()</a> function can
+      come in handy to turn off the auto-redirect when authentication is needed.</em></em></p>
+    <h3>
+<a name="getuser" class="anchor" href="#getuser"><span class="octicon octicon-link"></span></a>getUser()</h3>
+    <p>    Will return an associate array of the session user data.
+    </p>
+    <h3>
+<a name="getuserid" class="anchor" href="#getuserid"><span class="octicon octicon-link"></span></a>getUserId()</h3>
+    <p>    Will return the Google User ID from the session user array.
+    </p>
+    <h3>
+<a name="cleanuser" class="anchor" href="#cleanuser"><span class="octicon octicon-link"></span></a>cleanUser()</h3>
+    <p>    Useful for logging out. Call in your <em>logout()</em> controller function to delete the google user data from the session.
+    </p>
+    <h3>
+<a name="gettokens" class="anchor" href="#gettokens"><span class="octicon octicon-link"></span></a>getTokens()</h3>
+    <p>    Returns a JSON string of the tokens returned on successful authentication and stored in the session array.
+    </p>
+  </blockquote>
+</ul><h1>
+<a name="questions" class="anchor" href="#questions"><span class="octicon octicon-link"></span></a>QUESTIONS?</h1>
+
+<p> Reach out @ <a href="https://twitter.com/uchechilaka" title="WebsiteInAPage on Twitter" target="_blank">https://twitter.com/websiteinapage</a>. I'll do my best to respond in a timely fasion. 
+    </p>
+        </section>
+
+        <footer>
+          Googleoauth2component is maintained by <a href="https://github.com/uchilaka">uchilaka</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+                  <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-47459054-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+      </div>
+    </div>
+  </body>
+</html>
