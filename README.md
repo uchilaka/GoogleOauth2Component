@@ -21,6 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
+<div style='font-family: Arial, Helvetica, sans-serif'>
 <h1>DISCLAIMER</h1>
   <p>  This work is put on here to assist anyone working with CakePHP projects and needing a wrapper class for the Google OAuth 2.0 library. It is provided AS-IS. 
   </p>
@@ -57,30 +58,28 @@ THE SOFTWARE.
   <p class="code">$this-&gt;GoogleAuth = $this-&gt;Components-&gt;load('GoogleOauth2');              
   </p>
 <h1>FUNCTIONS</h1>
-<ul>
   <blockquote>
-    <h3 id='connect'><span class='fxn'>connect</span>(Controller $controller, $config, $scopes, $api_mode)</h3>
+    <h3 id='connect'><span class='fxn'>connect</span>($controller, $config, $scopes, $api_mode)</h3>
     <p>    This method is most likey
       be well used within your project. It initializes your authentication attempt againt the user's Google ID, and accepts the following arguments:
     </p>
     <blockquote>
-      <p><span class='var'>controller</span>: Use the $this variable to pass your controller into the component for controller-level callbacks</p>
-      <p>$config: This is an associative array with the following parameters:
-      </p>
+      <p><span class='var'><strong>controller</strong></span>: Use the $this variable to pass your controller into the component for controller-level callbacks</p>
+      <p><strong>config</strong>: This is an associative array with the following parameters: </p>
       <blockquote>
-        <p><span class='var'>client_id</span>: Your Google API client ID</p>
-        <p><span class='var'>client_secret</span>: Your Google API secret</p>
+        <p><span class='var'><strong>client_id</strong></span>: Your Google API client ID</p>
+        <p><span class='var'><strong>client_secret</strong></span>: Your Google API secret</p>
         <p><span class='var'>redirect_url</span>: Your success redirect url once the authentication action is completed. This url MUST be included in the list of accepted callbacks in your google console</p>
       </blockquote>
-      <p><span class='var'>scopes</span>: This is an array of Google API scopes. These scopes are in url format. A typical array of scopes will look like this:   
+      <p><span class='var'><strong>scopes</strong></span>: This is an array of Google API scopes. These scopes are in url format. A typical array of scopes will look like this:   
       </p>
-      <p class="code">      $scopes = array('https://www.googleapis.com/auth/userinfo.email',
+      <blockquote class="code">      $scopes = array('https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile',
         'https://www.googleapis.com/auth/drive', 
-        'https://www.googleapis.com/auth/drive.file');</p>
+        'https://www.googleapis.com/auth/drive.file');</blockquote>
       <p>      The <em>email</em> and <em>profile</em> scopes are required for this component.
       </p>
-      <p><span class='var'>api_mode</span>: This is a boolean variable. If set to true, the component will return an associative array with a <em>success</em> index that indicates whether the auth attempt was successful or not. This will be useful if you are authenticating via an API and would like to parse the associate array to a JSON string (for instance) instead of the auto-redirect action.</p>
+      <p><span class='var'><strong>api_mode</strong></span>: This is a boolean variable. If set to true, the component will return an associative array with a <em>success</em> index that indicates whether the auth attempt was successful or not. This will be useful if you are authenticating via an API and would like to parse the associate array to a JSON string (for instance) instead of the auto-redirect action.</p>
     </blockquote>
     <h3 id='IsReady'><span class='fxn'>isReady</span>()</h3>
     <p>    This returns true or false after a <a href='#connect'><span class='fxn'>connect</span>()</a> call for a success or failure to authenticate. 
@@ -101,7 +100,7 @@ THE SOFTWARE.
     <p>    Returns a JSON string of the tokens returned on successful authentication and stored in the session array.
     </p>
   </blockquote>
-</ul>
 <h1 id='QA'>QUESTIONS?</h1>
 <p> Reach out @ <a href="https://twitter.com/uchechilaka" title="WebsiteInAPage on Twitter" target="_blank">https://twitter.com/websiteinapage</a>. I'll do my best to respond in a timely fasion. 
     </p>
+</div>
