@@ -21,14 +21,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>GoogleOAuth2 Component for CakePHP</title>
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body>
 <h1>DISCLAIMER</h1>
   <p>  This work is put on here to assist anyone working with CakePHP projects and needing a wrapper class for the Google OAuth 2.0 library. It is provided AS-IS. 
   </p>
@@ -113,5 +105,3 @@ THE SOFTWARE.
 <h1 id='QA'>QUESTIONS?</h1>
 <p> Reach out @ <a href="https://twitter.com/uchechilaka" title="WebsiteInAPage on Twitter" target="_blank">https://twitter.com/websiteinapage</a>. I'll do my best to respond in a timely fasion. 
     </p>
-    </body>
-</html>
