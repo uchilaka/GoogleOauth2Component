@@ -30,54 +30,39 @@
       <section>
         
 
+<div>
 <h1>
 <a name="disclaimer" class="anchor" href="#disclaimer"><span class="octicon octicon-link"></span></a>DISCLAIMER</h1>
-
-<p></p><p>  This work is put on here to assist anyone working with CakePHP projects and needing a wrapper class for the Google OAuth 2.0 library. It is provided AS-IS. 
+  <p>  This work is put on here to assist anyone working with CakePHP projects and needing a wrapper class for the Google OAuth 2.0 library. It is provided AS-IS. 
   </p>
-
 <h1>
 <a name="plugin-vs-component" class="anchor" href="#plugin-vs-component"><span class="octicon octicon-link"></span></a>PLUGIN VS. COMPONENT</h1>
-
 <p> There are cases when it is best to use a plugin in CakePHP, and other cases where it works out to use a component. Depending on 
   your preferences, you could swing in either direction - this component provides functionality that some might see better fit for 
   a plugin - and there might be a plugin version in the future. For now - quick and dirty!
   </p>
-
 <h1>
 <a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>REQUIREMENTS</h1>
-
 <p> This component requires the following libraries:
   </p>
-
 <p>CakePHP - Your application should be based on the CakePHP Framework. You can download the framework code at <a href="http://cakephp.org/" title="CakePHP Website" target="_blank">http://cakephp.org/</a>.</p>
-
 <p>A working knowledge of coding with CakePHP. The CakePHP documentation can be found here: <a href="http://book.cakephp.org/2.0/en/index.html" target="_blank">http://book.cakephp.org/2.0/en/index.html</a></p>
-
 <p>A Google Console Project with OAuth credentials. To setup your google console project, visit <a href="http://cloud.google.com" target="_blank">http://cloud.google.com</a>.</p>
-
 <p>The Google_Oauth2Service class, available in the <a href="https://code.google.com/p/google-api-php-client/" target="_blank">Google API Client Library for PHP</a> library
     </p>
-
 <p>The Google_Client class, also available in the <a href="https://code.google.com/p/google-api-php-client/" target="_blank">Google API Client Library for PHP</a> library</p>
-
 <h1>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>INSTALLATION</h1>
-
 <p>Copy the component to your /&lt;Application Root&gt;/app/Controller/Component/ directory, or any other directory bootstrapped to search for components.</p>
-
 <p>Replace the paths to both the Google_Oauth2Service and Google_Client class files with the correct path on your server - e.g. /var/www/libraries/google/google-api-client/src/contrib/&lt;ClassFile&gt; assuming that is where you have the Google API library installed on your server</p>
-
 <p>That's it! You're ready to start using the component within your CakePHP controllers.            </p>
-
 <h1>
 <a name="using-the-component" class="anchor" href="#using-the-component"><span class="octicon octicon-link"></span></a>USING THE COMPONENT</h1>
-
 <p>Include the component name in your $components array </p>
-
 <ul> 
     public $components = array('GoogleOauth2');
-     </ul><p>Next, use the <a href="#connect">connect()</a> method to initialize the component when you are ready to attempt authentication against Google ID. See the method reference <a href="#connect">below</a> for accepted arguments.</p>
+     </ul>
+<p>Next, use the <a href="#connect">connect()</a> method to initialize the component when you are ready to attempt authentication against Google ID. See the method reference <a href="#connect">below</a> for accepted arguments.</p>
   <h2>
 <a name="loading-components-on-the-fly" class="anchor" href="#loading-components-on-the-fly"><span class="octicon octicon-link"></span></a>LOADING COMPONENTS ON THE FLY</h2>
 
@@ -86,31 +71,29 @@
   </p>
 <h1>
 <a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>FUNCTIONS</h1>
-<ul>
-<blockquote>
+  <blockquote>
     <h3>
-<a name="connectcontroller-controller-config-scopes-api_mode" class="anchor" href="#connectcontroller-controller-config-scopes-api_mode"><span class="octicon octicon-link"></span></a>connect(Controller $controller, $config, $scopes, $api_mode)</h3>
+<a name="connectcontroller-config-scopes-api_mode" class="anchor" href="#connectcontroller-config-scopes-api_mode"><span class="octicon octicon-link"></span></a>connect($controller, $config, $scopes, $api_mode)</h3>
     <p>    This method is most likey
       be well used within your project. It initializes your authentication attempt againt the user's Google ID, and accepts the following arguments:
     </p>
     <blockquote>
-      <p>controller: Use the $this variable to pass your controller into the component for controller-level callbacks</p>
-      <p>$config: This is an associative array with the following parameters:
-      </p>
+      <p><strong>controller</strong>: Use the $this variable to pass your controller into the component for controller-level callbacks</p>
+      <p><strong>config</strong>: This is an associative array with the following parameters: </p>
       <blockquote>
-        <p>client_id: Your Google API client ID</p>
-        <p>client_secret: Your Google API secret</p>
+        <p><strong>client_id</strong>: Your Google API client ID</p>
+        <p><strong>client_secret</strong>: Your Google API secret</p>
         <p>redirect_url: Your success redirect url once the authentication action is completed. This url MUST be included in the list of accepted callbacks in your google console</p>
       </blockquote>
-      <p>scopes: This is an array of Google API scopes. These scopes are in url format. A typical array of scopes will look like this:   
+      <p><strong>scopes</strong>: This is an array of Google API scopes. These scopes are in url format. A typical array of scopes will look like this:   
       </p>
-      <p>      $scopes = array('https://www.googleapis.com/auth/userinfo.email',
+      <blockquote>      $scopes = array('https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile',
         'https://www.googleapis.com/auth/drive', 
-        'https://www.googleapis.com/auth/drive.file');</p>
+        'https://www.googleapis.com/auth/drive.file');</blockquote>
       <p>      The <em>email</em> and <em>profile</em> scopes are required for this component.
       </p>
-      <p>api_mode: This is a boolean variable. If set to true, the component will return an associative array with a <em>success</em> index that indicates whether the auth attempt was successful or not. This will be useful if you are authenticating via an API and would like to parse the associate array to a JSON string (for instance) instead of the auto-redirect action.</p>
+      <p><strong>api_mode</strong>: This is a boolean variable. If set to true, the component will return an associative array with a <em>success</em> index that indicates whether the auth attempt was successful or not. This will be useful if you are authenticating via an API and would like to parse the associate array to a JSON string (for instance) instead of the auto-redirect action.</p>
     </blockquote>
     <h3>
 <a name="isready" class="anchor" href="#isready"><span class="octicon octicon-link"></span></a>isReady()</h3>
@@ -137,11 +120,11 @@
     <p>    Returns a JSON string of the tokens returned on successful authentication and stored in the session array.
     </p>
   </blockquote>
-</ul><h1>
+<h1>
 <a name="questions" class="anchor" href="#questions"><span class="octicon octicon-link"></span></a>QUESTIONS?</h1>
-
 <p> Reach out @ <a href="https://twitter.com/uchechilaka" title="WebsiteInAPage on Twitter" target="_blank">https://twitter.com/websiteinapage</a>. I'll do my best to respond in a timely fasion. 
     </p>
+</div>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/uchilaka">uchilaka</a></p>
