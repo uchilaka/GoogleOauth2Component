@@ -1,0 +1,37 @@
+body {
+    font-family: Helvetica;
+    font-size: 1em;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 100;
+}
+
+span.code, .code, pre {
+	font-family: "Courier New", Courier, monospace;
+    font-size: 0.9em;
+}
+
+span.code {
+	display: inline-block;
+	/*white-space: nowrap;*/
+}
+
+.code:not(span), pre {
+    background: #f7f7f7;
+    padding: 1em;
+    border-radius: 0.5em;
+	margin: 2em 0 2em 0;
+	max-width: 800px;
+	display: block;
+}
+
+.fxn {
+	color: #00b2ee; font-weight: bold;
+}
+
+.var {
+	color: #6C6;
+	font-weight: bold;
+}
+
