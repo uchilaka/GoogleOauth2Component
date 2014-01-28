@@ -82,6 +82,14 @@ class GoogleOauth2Component extends Component {
         // TODO: Use the oauth2.tokeninfo() method instead once it's
         //       exposed by the PHP client library
         $this->google->setAccessToken($credentials);
+        // attempt to refresh 
+        $tokens = json_decode($credentials, true);
+        // get a new access token
+        if(!empty($tokens['refresh_token'])):
+            // get new access token
+            $this->google->refreshToken($tokens['refresh_token']);
+        endif;
+        
         try {
           return $this->oauth->userinfo->get();
         } catch (Google_ServiceException $e) {
