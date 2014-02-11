@@ -1,13 +1,14 @@
 <?php
 
 App::uses('Component', 'Controller');
-# App::uses('Curl', 'Component');
+App::uses('Curl', 'Component');
+// declare unique app namespace APP_NAME
 
-// #Path to CakePHP Vendor Base
+# Alternate Path to components - if you have components outside your /App/Controller/Component directory
 $CAKE_VENDOR_BASE = str_replace('/CakePHP/Component', '', __DIR__) . DS;
-// # Path to Google_Client
+# Path to Google_Client Class
 require_once $CAKE_VENDOR_BASE . 'google' . DS . 'google-api-php-client' . DS . 'src' . DS . "Google_Client.php";
-// # Path to Google_Oauth2Service
+# Path to Google_Oauth2Service class
 require_once $CAKE_VENDOR_BASE . 'google' . DS . 'google-api-php-client' . DS . 'src' . DS . "contrib" . DS . "Google_Oauth2Service.php";
 
 class GoogleOauth2Component extends Component {
@@ -33,6 +34,7 @@ class GoogleOauth2Component extends Component {
         $this->google->setClientId($config['client_id']);
         $this->google->setClientSecret($config['client_secret']);
         $this->google->setRedirectUri($config['redirect_url']);
+        // find scope configuration
         $this->google->setScopes($scopes);
         $this->google->setUseObjects(true);
         
@@ -67,8 +69,7 @@ class GoogleOauth2Component extends Component {
         $this->google->setAccessToken($token);
         $this->userinfo = $this->verify_credentials($controller, $token);
         if(!empty($this->userinfo)):
-            $this->setTokens($token);
-            $this->setUserId($this->user['id']);
+            $this->setUser($this->user['id'], $token);
             $this->ready = true;
             // send to application
             $controller->redirect($this->config['redirect_url']);
@@ -84,37 +85,35 @@ class GoogleOauth2Component extends Component {
         $this->google->setAccessToken($credentials);
         // attempt to refresh 
         $tokens = json_decode($credentials, true);
+        $now = time();
+        $expired = 0;
         // get a new access token
         if(!empty($tokens['refresh_token'])):
-            // get new access token
-            $this->google->refreshToken($tokens['refresh_token']);
+            $now = time();
+            $expired =$tokens['created']+$tokens['expires_in'];
+            if($now<$expired):
+                $this->google->refreshToken($tokens['refresh_token']);
+            endif;
         endif;
         
-        try {
-          return $this->oauth->userinfo->get();
-        } catch (Google_ServiceException $e) {
-            if ($e->getCode() == 401) {
-                  // This user may have disabled the Glassware on MyGlass.
-                  // Clean up the mess and attempt to re-auth.
-                  $this->cleanUser();
-                  if($api_mode):
-                      return array('success'=>false, 'message'=>$e->getMessage());
-                  else:
-                       $controller->redirect($this->getAuthUrl());
-                  endif;
-                  // $controller->redirect($this->config['redirect_url']);
-                  // echo $this->getAuthUrl();
-                  // exit;
-            } else {
-                  // Let it go...
-                  // throw $e;
-                  if($api_mode):
-                      return array('success'=>false, 'message'=>$e->getMessage());
-                  else:
-                      throw $e;
-                  endif;
-            }
-        }
+        if($now>$expired):
+            if($api_mode):
+                return array('success'=>false, 'message'=>'Authentication failed');
+            else:
+                $controller->redirect($this->getAuthUrl());
+            endif;
+        endif;
+        
+        $user = $this->oauth->userinfo->get();
+        if(empty($user)):
+            if($api_mode):
+                return array('success'=>false, 'message'=>'Authentication failed');
+            else:
+                $controller->redirect($this->getAuthUrl());
+            endif;
+        else:
+            return $user;
+        endif;
     }
     
     public function isReady() {
@@ -132,36 +131,38 @@ class GoogleOauth2Component extends Component {
         }
     }
     
+    private function setUser($id, $token) {
+        $_SESSION[APP_NAME . self::OAUTH_USER_INDEX] = array(
+            'id'=>$id
+        );
+        $_SESSION[APP_NAME . self::OAUTH_USER_INDEX][APP_NAME . self::OAUTH_TOKEN_INDEX] = json_decode($token, true);
+    }
+    /*
     private function setUserId($id) {
         $_SESSION[self::OAUTH_USER_INDEX]['id'] = $id;
     }
-    
+    */
     function getUser() {
-        if (isset($_SESSION[self::OAUTH_USER_INDEX])) {
-          return $_SESSION[self::OAUTH_USER_INDEX];
+        if (isset($_SESSION[APP_NAME . self::OAUTH_USER_INDEX])) {
+          return $_SESSION[APP_NAME . self::OAUTH_USER_INDEX];
         }
     }
     
     private function getUserId() {
-        if(empty($_SESSION[self::OAUTH_USER_INDEX])):
-            throw new Exception("No user ID found in session.");
+        $user = $_SESSION[APP_NAME . self::OAUTH_USER_INDEX];
+        if(!empty($user[APP_NAME . self::OAUTH_TOKEN_INDEX])):
+            return $user[APP_NAME . self::OAUTH_TOKEN_INDEX];
         endif;
-        
-        return $_SESSION[self::OAUTH_USER_INDEX]['id'];
-    }
-    
-    private function setTokens($token) {
-        $_SESSION[self::OAUTH_TOKEN_INDEX] = $token;
     }
     
     public function cleanUser() {
-        unset($_SESSION[self::OAUTH_USER_INDEX]);
-        unset($_SESSION[self::OAUTH_TOKEN_INDEX]);
+        unset($_SESSION[APP_NAME . self::OAUTH_USER_INDEX]);
     }
     
     public function getTokens() {
-        if(!empty($_SESSION[self::OAUTH_TOKEN_INDEX])):
-            return $_SESSION[self::OAUTH_TOKEN_INDEX];
+        $user = $this->getUser();
+        if(!empty($user[APP_NAME . self::OAUTH_TOKEN_INDEX])):
+            return json_encode($user[APP_NAME . self::OAUTH_TOKEN_INDEX]);
         endif;
     }
     
